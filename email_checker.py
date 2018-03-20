@@ -1,7 +1,5 @@
 valid_email = ['gmail.com', 'yahoo.co.in', 'iitkgp.ac.in']
 
-sample_emails = ['xypnox@gmail.com', 'xypnox@iitkgp.ac.in', 'xypnoxgmail.com', 'yahoo@gamil.com', 'vadoo@gradoo']
-
 
 def perms(word):
     "All edits that are one edit away from `word`."
@@ -26,11 +24,12 @@ class EmailPurifier:
             if len(contents) == 2:
                 if contents[1] in valid_email:
                     correct += 1
+                    print('It is correct')
                 elif checkTypo is True:
                     domain_data = contents[1].split('.')
                     for vemail in valid_email:
-                        alters = perms(valid_email.split('.', 1)[0])
+                        alters = perms(vemail.split('.', 1)[0])
                         if domain_data[0] in alters:
-                            print("Wrong Domain : " + contents)
+                            print("Wrong Domain : " + contents[1])
                             print("Did you mean : " + vemail)
                             break
