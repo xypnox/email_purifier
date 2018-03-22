@@ -1,21 +1,5 @@
 from query_yes_or_no import query_yes_no as qyn
-
-valid_email = [
-    'gmail.com',
-    'yahoo.com',
-    'hotmail.com',
-    'aol.com',
-    'hotmail.co.uk',
-    'hotmail.fr',
-    'msn.com',
-    'yahoo.fr',
-    'wanadoo.fr',
-    'orange.fr',
-    'outlook.com',
-    'yandex.ru',
-    'outlook.com',
-    'iitkgp.ac.in'
-]
+from valid_emails import valid_emails_list
 
 
 def perms(word):
@@ -32,14 +16,17 @@ def perms(word):
 
 
 class EmailPurifier:
-    def __init__(self, emails, valid_emails=valid_email):
+    def __init__(self, emails, valid_emails=[], onlyAdditional=False):
         '''
         Initialises The Instance with emails and empty wrong emails list
         Valid Email domains are stored in valid
         '''
         self.emails = emails
         self.wrong_emails = []
-        self.valid = valid_emails
+        if onlyAdditional is True:
+            self.valid = valid_emails
+        else:
+            self.valid = valid_emails_list + valid_emails
 
     def CheckEmails(self, checkTypo=False, fillWrong=True):
         '''Checks Emails in List Wether they are Correct or not'''
