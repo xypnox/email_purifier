@@ -1,3 +1,5 @@
+from query_yes_or_no import query_yes_no as qyn
+
 valid_email = ['gmail.com', 'yahoo.co.in', 'iitkgp.ac.in']
 
 
@@ -15,12 +17,12 @@ def perms(word):
 
 
 class EmailPurifier:
-    def __init__(self, emails, check=False):
+    def __init__(self, emails):
         self.emails = emails
-        if check is True:
-            self.CheckEmail()
+        self.wrong_emails = []
+        self.CheckEmail(fillWrong=True)
 
-    def CheckEmail(self, checkTypo=False, echoText=False):
+    def CheckEmail(self, checkTypo=False, fillWrong=True):
         self.correct = 0
         for email in self.emails:
             contents = email.split('@')
@@ -28,15 +30,16 @@ class EmailPurifier:
 
                 if contents[1] in valid_email:
                     self.correct += 1
-                    print('It is correct')
+                    # print(email + ' is correct')
+                else:
+                    print("Wrong Email : " + email)
+                    if checkTypo is True:
+                        domain_data = contents[1].split('.')
+                        for vemail in valid_email:
+                            alters = perms(vemail.split('.', 1)[0])
 
-                elif checkTypo is True:
-                    domain_data = contents[1].split('.')
-                    for vemail in valid_email:
-                        alters = perms(vemail.split('.', 1)[0])
-
-                        if domain_data[0] in alters and echoText is True:
-                                print("Wrong Domain : " + contents[1])
-                                print("Did you mean : " + vemail)
-                                break
+                            if domain_data[0] in alters:
+                                    if qyn("Did you mean : " + contents[0] + vemail) is True:
+                                        pass
+                                    break
         return self.correct
