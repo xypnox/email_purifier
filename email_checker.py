@@ -24,21 +24,14 @@ class EmailPurifier:
         '''
         self.emails = emails
         self.wrong_emails = []
-        # self.corrected_emails = []
         self.valid = valid_emails
-        self.correct = 0
-        # self.CheckEmails(fillWrong=True)
 
     def CheckEmails(self, checkTypo=False, fillWrong=True):
         '''Checks Emails in List Wether they are Correct or not'''
-        self.correct = 0
         self.wrong_emails = []
         for email in self.emails:
-            if self.CheckEmail(email, checkTypo):
-                self.correct += 1
-            else:
+            if self.CheckEmail(email, checkTypo) is False:
                 self.wrong_emails.append(email)
-        return self.correct
 
     def CheckEmail(self, email, checkTypo=False):
         '''Checks a Single email if it is correct'''
@@ -50,7 +43,6 @@ class EmailPurifier:
 
     def CorrectWrongEmails(self, askInput=True):
         '''Corrects Emails in wrong_emails'''
-        # self.corrected_emails = []
         for email in self.wrong_emails:
             corrected_email = self.CorrectEmail(email)
             self.emails[self.emails.index(email)] = corrected_email
@@ -83,8 +75,6 @@ class EmailPurifier:
     def stats(self):
         print('___STATS___')
         print('Emails = ', self.emails)
-        print('Correct = ', self.correct)
         print('Wrong Emails = ', self.wrong_emails)
-        # print('Corrected Emails = ', self.corrected_emails)
         print('Valid Domains = ', self.valid)
         print('___END___')
