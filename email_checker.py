@@ -69,9 +69,10 @@ class EmailPurifier:
             return corrected
         else:
             print('Looks like you missed/overused `@`')
-            for vemail in self.valid:
-                if email[len(email) - len(vemail):] == vemail and qyn("Did you mean : " + email[:len(email) - len(vemail)] + '@' + vemail) is True:
-                    return email[:len(email) - len(vemail)] + '@' + vemail
+            if len(contents) == 1:
+                for vemail in self.valid:
+                    if email[len(email) - len(vemail):] == vemail and qyn("Did you mean : " + email[:len(email) - len(vemail)] + '@' + vemail) is True:
+                        return email[:len(email) - len(vemail)] + '@' + vemail
 
             corrected = input('Enter Corrected Email : ')
             while self.CheckEmail(corrected) is False:
