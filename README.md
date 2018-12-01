@@ -2,10 +2,27 @@
 
 A KISS(Keep It Stupid Simple) email validator for csv files
 
+To install the script locally use:
+
+To install the program run
+
+```bas
+$ pip install todx
+```
+
+If you are using Ubuntu run this instead:
+
+```
+$ pip3 install todx
+```
+
+If the installation of pandas fails due to user permissions, you can either use sudo or install using the `--user` parameter.
+
+
 To validate and store the emails in a csv file run:
 
-```bash
-python csv_checker.py <input file> <output file>
+```
+epurifier <input file> <output file>
 ```
 
 And tackle with the invalid emails through keyboard.
@@ -13,6 +30,13 @@ And tackle with the invalid emails through keyboard.
 
 > Note that both input and Output files should be in csv format
 
+If you clone the repo you can extend the code, to install the cloned repo as a package, run:
+
+```
+pip install -e .
+```
+
+Now, editing the files in the local folder will reflect systemwide installation of epurifier so you can use the epurifier with your modified parameters.
 
 Also, to extend the valid emails you can either pass them when you create the EmailPurifier class as
 ```python
