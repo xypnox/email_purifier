@@ -1,5 +1,8 @@
 # Email Purifier
 
+KWoC Communicaton: [![Join the chat at https://gitter.im/epurifier/Lobby](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/epurifier/Lobby)
+
+
 A KISS(Keep It Stupid Simple) email validator for csv files
 
 To install the script locally use:
