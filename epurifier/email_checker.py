@@ -1,5 +1,5 @@
-from query_yes_or_no import query_yes_no as qyn
-from valid_emails import valid_emails_list
+from . import query_yes_or_no as qyn
+from . import valid_emails as vm
 
 
 def perms(word):
@@ -26,7 +26,7 @@ class EmailPurifier:
         if onlyAdditional is True:
             self.valid = valid_emails
         else:
-            self.valid = valid_emails_list + valid_emails
+            self.valid = vm.valid_emails_list + valid_emails
 
     def CheckEmails(self, checkTypo=False, fillWrong=True):
         '''Checks Emails in List Wether they are Correct or not'''
@@ -60,7 +60,7 @@ class EmailPurifier:
 
             for vemail in self.valid:
                 alters = perms(vemail.split('.', 1)[0])
-                if domain_data[0] in alters and qyn("Did you mean : " + contents[0] + '@' + vemail) is True:
+                if domain_data[0] in alters and qyn.query_yes_no("Did you mean : " + contents[0] + '@' + vemail) is True:
                         return contents[0] + '@' + vemail
 
             corrected = input('Enter Corrected Email : ')
@@ -71,7 +71,7 @@ class EmailPurifier:
             print('Looks like you missed/overused `@`')
             if len(contents) == 1:
                 for vemail in self.valid:
-                    if email[len(email) - len(vemail):] == vemail and qyn("Did you mean : " + email[:len(email) - len(vemail)] + '@' + vemail) is True:
+                    if email[len(email) - len(vemail):] == vemail and qyn.query_yes_no("Did you mean : " + email[:len(email) - len(vemail)] + '@' + vemail) is True:
                         return email[:len(email) - len(vemail)] + '@' + vemail
 
             corrected = input('Enter Corrected Email : ')

@@ -1,5 +1,5 @@
 import pandas as pd
-import email_checker as ec
+from . import email_checker as ec
 import sys
 
 
