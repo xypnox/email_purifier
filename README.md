@@ -6,7 +6,7 @@ To install the script locally use:
 
 To install the program run
 
-```bas
+```
 $ pip install todx
 ```
 
