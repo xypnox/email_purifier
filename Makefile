@@ -1,4 +1,4 @@
-build: todx/*
+build: epurifier/*
 	rm -fr build/* dist/*
 	python3 setup.py sdist bdist_wheel
 

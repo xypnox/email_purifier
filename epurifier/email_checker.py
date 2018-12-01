@@ -3,7 +3,7 @@ from . import valid_emails as vm
 
 
 def perms(word):
-    '''All edits that are one edit away from `word`.'''
+    '''All edits that are one edit away from `word`'''
     letters = 'qwertyuiopasdfghjklzxcvbnm'
 
     splits = [(word[:i], word[i:]) for i in range(len(word) + 1)]
