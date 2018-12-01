@@ -15,7 +15,7 @@ setuptools.setup(
     url="https://github.com/xypnox/email_purifier",
     packages=setuptools.find_packages(),
     entry_points = {
-        'console_scripts': ['epurifier=epurifier.main'],
+        'console_scripts': ['epurifier=epurifier:main'],
     },
     install_requires = ['pandas'],
     classifiers=[
