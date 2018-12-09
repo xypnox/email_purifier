@@ -3,8 +3,8 @@ from . import email_checker as ec
 import sys
 
 
-def main(argv):
-
+def main():
+    argv=sys.argv[1:]
     inputfile = argv[0]
     outputfile = argv[1]
 
@@ -29,4 +29,4 @@ def main(argv):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1:])
+    main()
