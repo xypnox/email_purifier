@@ -1,4 +1,4 @@
-build: epurifier/*
+build: epurifier/* setup.py
 	rm -fr build/* dist/*
 	python3 setup.py sdist bdist_wheel
 
