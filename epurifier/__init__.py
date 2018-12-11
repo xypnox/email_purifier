@@ -7,16 +7,27 @@ def main():
     argv=sys.argv[1:]
     inputfile = argv[0]
     outputfile = argv[1]
+    if(len(argv)==3):
+        column_header = (argv[2]).lower()
+    else:
+        column_header = 'email'
 
+    #print(column_header)
+    
     print('Input file is ', inputfile)
 
     data_df = pd.read_csv(inputfile)
 
+    colName = None
+
     for column in data_df.columns:
-        if column == 'Email':
-            colName = 'Email'
-        elif column == 'email':
-            colName = 'email'
+        print(column)
+        if column.lower() == column_header:
+            colName = column
+
+    if colName == None:
+        print('The specified column name ' + column_header+ ' was not found in the input file '+inputfile+'!\nExiting...\n')
+        return
 
     emails = data_df[colName]
     emil = ec.EmailPurifier(list(emails))
