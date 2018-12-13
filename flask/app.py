@@ -1,6 +1,6 @@
-from flask import Flask, render_template, request,json
+from flask import Flask, render_template
 
-app= Flask('__main__')
+app = Flask('__main__')
 
 @app.route('/')
 
@@ -10,4 +10,4 @@ def main():
 
 
 if __name__ == '__main__':
-	app.run('0.0.0.0',8080)
+	app.run()
