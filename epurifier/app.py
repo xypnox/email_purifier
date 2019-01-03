@@ -7,12 +7,11 @@ import subprocess
 import pexpect
 import threading
 import pandas as pd
-from . import email_checker as ec
 import sys
 
 
 
-
+emails = None
 
 app = Flask('__main__')
 app.config.from_object('config.Config')
@@ -78,6 +77,13 @@ def home():
 @app.route('/uploaded',methods=['GET','POST'])
 
 def arrive():
+	global emails
+
+	column_header = session.get['column']
+	if column_header == None:
+		column_header = 'email'
+
+	column_header = column_header.lower()
 
 	if request.method == 'GET' and session.get('infile')!=None:
 		data_df = pd.read_csv(session.get('infile'))
@@ -92,10 +98,7 @@ def arrive():
 			return render_template('status.html')
 
 		emails = data_df[colName]
-		emil = ec.EmailPurifier(list(emails))
-		emil.CheckEmails(checkTypo=True)
-		emil.CorrectWrongEmails()
-		data_df[colName] = emil.emails
+		
 
 
 		flash('Do you want to remove duplicate entries? Enter 1 for yes, 2 for no :')
@@ -111,8 +114,14 @@ def arrive():
 @app.route('/next')
 
 def nextprocess():
+	global emails
+
 	if session.get('removeduplicates')==None:
 		return redirect('/')
+
+	#LEFT : To implement  emil = ec.EmailPurifier(list(emails))
+
+
 
 	
 
