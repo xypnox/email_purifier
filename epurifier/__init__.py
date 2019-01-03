@@ -20,6 +20,8 @@ def main():
     
     print('Input file is ', inputfile)
 
+ 
+
     data_df = pd.read_csv(inputfile)
 
     colName = None
@@ -33,7 +35,10 @@ def main():
         print('The specified column name ' + column_header+ ' was not found in the input file '+inputfile+'!\nExiting...\n')
         return
 
-    x = input('Do you want to remove duplicate entries? Enter 1 for yes, 2 for no : ')
+    print('Do you want to remove duplicate entries? Enter 1 for yes, 2 for no :')
+    sys.stdout.flush()
+    x = input()
+   
     emails = data_df[colName]
     emil = ec.EmailPurifier(list(emails))
     emil.CheckEmails(checkTypo=True)
@@ -46,6 +51,7 @@ def main():
 
     data_df.to_csv(outputfile, index=False)
     print('Emails Formated ! Output file is : ', outputfile)
+    sys.stdout.flush()
 
 
 if __name__ == "__main__":

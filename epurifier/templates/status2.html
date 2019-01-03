@@ -1,0 +1,44 @@
+<DOCTYPE html>
+<html>
+
+
+<head>
+
+	<title>Form Submission</title>
+
+</head>
+
+
+<body>
+	
+	<h1>Processing csv file</h1>
+
+
+<div style="white-space: pre-line">
+	
+{% with messages = get_flashed_messages() %}
+         {% if messages %}
+            <ul>
+               {% for message in messages %}
+               <li style="white-space: pre-line">{{ message }}</li>
+               {% endfor %}
+            </ul>
+         {% endif %}
+{% endwith %}
+	
+</div>
+
+
+<div>
+<form method=post>
+  
+  Enter Here : <input type="text" name="input"><br>  
+  
+ <input type="submit">
+ </form>
+</div>
+
+</body>
+
+
+</html>

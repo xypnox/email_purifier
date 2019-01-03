@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>Epurifier</h1>
+<div>
+{% with messages = get_flashed_messages() %}
+         {% if messages %}
+            <ul>
+               {% for message in messages %}
+               <li>{{ message }}</li>
+               {% endfor %}
+            </ul>
+         {% endif %}
+{% endwith %}
+</div>
+<form method=post enctype=multipart/form-data>
+  Select csv file for input: <input type="file" name="inf"><br>
+  Enter name for output file: <input type="text" name="outf"><br>
+  (Optional)Enter name of column: <input type="text" name="column"><br>
+  
+  <input type="submit">
+</form>
+</body>
+</html>
