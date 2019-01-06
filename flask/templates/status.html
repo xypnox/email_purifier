@@ -1,0 +1,59 @@
+<DOCTYPE html>
+<html>
+
+
+<head>
+
+	<title>Form Submission</title>
+
+</head>
+
+
+<body>
+	
+	<h1>Processing csv file</h1>
+
+
+<div style="white-space: pre-line">
+ 
+{% with messages = get_flashed_messages(category_filter=["info"]) %}
+         {% if messages %}
+            {{message}}
+
+            <button>Download Output CSV</button>
+
+         {% endif %}
+{% endwith %}
+   
+</div>
+
+
+
+
+<div style="white-space: pre-line">
+	
+{% with messages = get_flashed_messages(category_filter=["error"]) %}
+         {% if messages %}
+         <h1>Displaying wrong addresses</h1>
+         <form method='post'>
+            <ul>
+               {% for items in diction: %}
+
+               <li style="white-space: pre-line">{{ items }} : <input type='text' name = 'enteredmail' value = {{diction[items]}}></li>
+               {% endfor %}
+            </ul>
+         </form>
+
+         <button>
+         {% endif %}
+{% endwith %}
+	
+</div>
+
+
+
+
+</body>
+
+
+</html>
