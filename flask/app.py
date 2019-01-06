@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect, url_for, render_template, send_from_directory, flash,session
+from flask import Flask, request, redirect, url_for, render_template, send_from_directory, flash,session,send_file
 from werkzeug.utils import secure_filename
 import os
 import config 
@@ -10,7 +10,8 @@ import pandas as pd
 import sys
 import email_checker as ec
 
-
+allemails = None
+wrongemails = None
 
 app = Flask('__main__')
 app.config.from_object('config.Config')
@@ -84,6 +85,40 @@ def home():
 @app.route('/uploaded',methods=['GET','POST'])
 
 def arrive():
+	global allemails
+	global wrongemails
+
+	if(request.method=='POST'):
+		changedemails = request.form.getlist('enteredmail')
+		inputfile = session.get('infile')
+		data_df = pd.read_csv(inputfile)
+		column_header = session.get('column')
+
+		if len(column_header) == 0:
+			column_header = 'email'
+
+		column_header = column_header.lower()
+		i = 0
+		j = 0
+
+		for i in range(len(allemails)):
+			if allemails[i] == wrongemails[j]:
+				allemails[i] = changedemails[j]
+				j = j+1
+
+		data_df[column_header] = allemails
+
+		if session['duplicate']:
+			data_df.drop_duplicates(subset=None, keep='first', inplace=True)
+		data_df.to_csv(inputfile, index=False)
+		return redirect('/uploaded')
+
+
+
+
+
+
+
 
 
 	column_header = session.get('column')
@@ -98,6 +133,9 @@ def arrive():
 #	print('column header is : ',column_header)
 
 	if session.get('infile')!=None:		#valid session
+
+		os.rename(session.get('infile'),session.get('outfile'))
+		session['infile'] = session.get('outfile')
 
 		inputfile = session.get('infile')
 #		print(inputfile)
@@ -132,11 +170,24 @@ def arrive():
 		for i in range(len(suggestedlist)):
 			diction[wrongemaillist[i]] = suggestedlist[i]
 
+		allemails = emails
+		wrongemails = wrongemaillist
+
 		return render_template('status.html',diction = diction)
 
 	else:
 		flash('Invalid Session')
 		return redirect('/')
+
+@app.route('/download')
+def download():
+	if session.get('infile')==None:
+		flash('Invalid Session')
+		return redirect('/')
+
+
+	return send_file(session.get('infile'),mimetype='text/csv',attachment_filename=session.get('infile'),as_attachment=True)
+
 
 
 

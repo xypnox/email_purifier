@@ -20,7 +20,7 @@
          {% if messages %}
             {{message}}
 
-            <button>Download Output CSV</button>
+            <a href={{url_for('download')}}><button>Download Output CSV</button></a>
 
          {% endif %}
 {% endwith %}
@@ -42,9 +42,10 @@
                <li style="white-space: pre-line">{{ items }} : <input type='text' name = 'enteredmail' value = {{diction[items]}}></li>
                {% endfor %}
             </ul>
+
+            <input type="submit">
          </form>
 
-         <button>
          {% endif %}
 {% endwith %}
 	
